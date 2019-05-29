@@ -24,13 +24,14 @@ class VendorTest < Minitest::Test
 
    end
 
-  def test_it can_check_stock
+  def test_it_can_check_stock
    expected = 0
    actual = @vendor.check_stock("Peaches")
    assert_equal expected, actual
  end
 
  def test_it_can_stock
+   
    @vendor.stock("Peaches", 30)
    expected = 30
    actual = @vendor.check_stock("Peaches")
@@ -46,4 +47,4 @@ class VendorTest < Minitest::Test
    actual = @vendor.inventory
    assert_equal expected, actual
  end
-end 
+end
