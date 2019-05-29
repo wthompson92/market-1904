@@ -77,16 +77,73 @@ class MarketTest < Minitest::Test
   end
 
   def test_sorted_item_list
+    @vendor_1.stock("Peaches", 35)
+    @vendor_1.stock("Tomatoes", 7)
+    @vendor_2.stock("Banana Nice Cream", 50)
+    @vendor_2.stock("Peach-Raspberry Nice Cream", 25)
+    @vendor_3.stock("Peaches", 65)
+    @market.add_vendor(@vendor_1)
+    @market.add_vendor(@vendor_2)
+    @market.add_vendor(@vendor_3)
     expected =["Banana Nice Cream", "Peach-Raspberry Nice Cream", "Peaches", "Tomatoes"]
     actual = @market.sorted_item_list
     assert_equal expected, actual
   end
 
   def test_total_item_list
+    @vendor_1.stock("Peaches", 35)
+    @vendor_1.stock("Tomatoes", 7)
+    @vendor_2.stock("Banana Nice Cream", 50)
+    @vendor_2.stock("Peach-Raspberry Nice Cream", 25)
+    @vendor_3.stock("Peaches", 65)
+    @market.add_vendor(@vendor_1)
+    @market.add_vendor(@vendor_2)
+    @market.add_vendor(@vendor_3)
+
     expected = {"Peaches"=>100, "Tomatoes"=>7, "Banana Nice Cream"=>50, "Peach-Raspberry Nice Cream"=>25}
     actual = @market.total_inventory
     assert_equal expected, actual
-
   end
 
+  def test_market_sell_method
+    @vendor_1.stock("Peaches", 35)
+    @vendor_1.stock("Tomatoes", 7)
+    @vendor_2.stock("Banana Nice Cream", 50)
+    @vendor_2.stock("Peach-Raspberry Nice Cream", 25)
+    @vendor_3.stock("Peaches", 65)
+    @market.add_vendor(@vendor_1)
+    @market.add_vendor(@vendor_2)
+    @market.add_vendor(@vendor_3)
+
+    actual = @market.sell("Peaches", 200)
+    refute actual
+
+    actual = @market.sell("Onions", 1)
+    refute actual
+
+    actual = @market.sell("Banana Nice Cream", 5)
+    assert actual
+
+    expected = 45
+    actual = @vendor_2.check_stock("Banana Nice Cream")
+    assert_equal expected, actual
+
+    actual = @market.sell("Peaches", 40)
+    assert actual
+
+    expected = 0
+    actual = @vendor_1.check_stock("Peaches")
+    assert_equal expected, actual
+
+    expected = 60
+    actual = vendor_3.check_stock("Peaches")
+    assert_equal expected, actual
+  end
+end 
+
+
+
+
+
+  end
 end

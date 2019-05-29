@@ -21,4 +21,20 @@ attr_reader :name, :vendors
       end
     end
   end
+
+  def sorted_item_list
+    all_items = []
+    @vendors.each { |vendor|
+    vendor.inventory.each { |key, value|
+      all_items << key}}
+    all_items.uniq.sort
+  end
+
+  def total_inventory
+    hash = Hash.new(0)
+    vendors.each {|vendor|
+    vendor.inventory.each {|item, count|
+    hash[item] += count}}
+    hash
+  end
 end
