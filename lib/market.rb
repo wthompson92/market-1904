@@ -37,4 +37,28 @@ attr_reader :name, :vendors
     hash[item] += count}}
     hash
   end
+
+
+  # def def_subrtact_quant(item, count)
+  #   wanted = Hash.new
+  #   until count == 0 do
+  #     @vendors.each do |vendor|
+  #       count -= vendor.inventory[item]
+  #       break if vendor.inventory[item] == 0
+  #     end
+  #   end
+  # end
+
+
+  def sell(item, count)
+    wanted = Hash.new
+    wanted[item] = count
+    if total_inventory[item] >= wanted[item]
+    return true
+    elsif  total_inventory[item] < wanted[item]
+      then false
+    else
+      "Error"
+    end
+  end
 end

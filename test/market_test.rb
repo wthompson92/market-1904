@@ -2,7 +2,7 @@ require './lib/vendor'
 require './lib/market'
 require 'minitest/autorun'
 require 'minitest/pride'
-
+require 'pry'
 class MarketTest < Minitest::Test
   def setup
     @market = Market.new("South Pearl Street Farmers Market")
@@ -138,12 +138,5 @@ class MarketTest < Minitest::Test
     expected = 60
     actual = vendor_3.check_stock("Peaches")
     assert_equal expected, actual
-  end
-end 
-
-
-
-
-
   end
 end
